@@ -1,8 +1,16 @@
-
 # Playwright
 node_modules/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/
+playwright-report/
+test-results/
+
+#Environment and auth
+.env 
+auth/storageState.json
+
+#Backup files
+playwright.config.original.ts 
+playwright.config.ts.original
+
+#OS files
+.DS_Store
+Thumbs.db
