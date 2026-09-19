@@ -5,17 +5,17 @@ import { test, expect } from '@playwright/test';
 // ============================================================
 
 const loginData = {
-  user: 'anuradha.learn@gmail.com',
-  password: 'Play@1234#$',
+  user: 'fersae89',
+  password: '5gtJ9yMQyAG4DuD',
   baseUrl: 'https://qa-cart.com/',
 };
 
 const billingAddress = {
-  firstName: 'Anuradha',
-  lastName: 'Agarwal',
+  firstName: 'Fer',
+  lastName: 'Sae',
   street: '123 Test Street',
-  city: 'Dubai',
-  country: 'AE',
+  city: 'Nvo CG',
+  country: 'CM',
 };
 
 // ============================================================

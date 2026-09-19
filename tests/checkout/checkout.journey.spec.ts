@@ -6,8 +6,8 @@ import { test, expect } from '@playwright/test';
 
 const loginData = {
     baseUrl: 'https://qa-cart.com/',
-    username: 'anuradha.learn@gmail.com',
-    password: 'Play@1234#$',
+    username: 'fersae89',
+    password: '5gtJ9yMQyAG4DuD',
 };
 
 const testData = {
