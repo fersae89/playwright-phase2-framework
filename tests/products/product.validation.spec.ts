@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../fixtures/baseFixtures';
 
 // ─────────────────────────────────────────────
 // Login Test Data
@@ -19,56 +19,21 @@ const testData = {
     }
 };
 
-// ─────────────────────────────────────────────
-// Precondition:
-// Login before every test execution
-// ─────────────────────────────────────────────
-test.beforeEach(async ({ page }) => {
-
-    // Navigate to application
-    await page.goto(loginData.baseUrl);
-
-    // Enter username
-    await page.getByRole('textbox', {
-        name: 'Username or email address'
-    }).fill(loginData.user);
-
-    // Enter password
-    await page.getByRole('textbox', {
-        name: 'Password'
-    }).fill(loginData.password);
-
-    // Click Login button
-    await page.getByRole('button', {
-        name: 'Log in'
-    }).click();
-
-    // Verify successful login
-    await expect(
-        page.getByLabel('Account pages')
-            .getByRole('link', { name: 'Log out' })
-    ).toBeVisible();
-
-});
 
 // ─────────────────────────────────────────────
 // Test: View Product Details in New Tab
 // ─────────────────────────────────────────────
 test.describe('Products — product detail new tab @products', () => {
-test('registered user views product details in new tab @regression', async ({ page }) => {
+test('registered user views product details in new tab @regression', async ({ loggedInPage:page }) => {
 
     // Step 1: Navigate to DemoShop page
     await test.step('Navigate to DemoShop', async () => {
 
-        await page.getByRole('link', {
-            name: 'DemoShop'
-        }).click();
+        page.goto('/demoshop')
 
         // Verify user reaches Shop page
         await expect(page).toHaveURL(/shop/);
     });
-
-    // page.context().waitForEvent('page')
 
     // Step 2: Open product in a new tab and validate details
     await test.step('Open product details and validate', async () => {
@@ -88,8 +53,6 @@ test('registered user views product details in new tab @regression', async ({ pa
             page.context().waitForEvent('page'),
             productLink.click()
         ]);
-
-        // console.log(productTab)
 
         // Wait until the new page finishes loading
         await productTab.waitForLoadState();
