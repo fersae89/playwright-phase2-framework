@@ -1,24 +1,10 @@
 import { test, expect } from '../../fixtures/baseFixtures';
+import searchData from '../../data/search.json'
 
-// ======================================================
-// Test Data
-// ======================================================
-
-const loginData = {
-    baseUrl: 'https://qa-cart.com/',
-    username: 'fersae89',
-    password: '5gtJ9yMQyAG4DuD',
-};
-
-const testData = {
-    search: {
-        keyword: 'organic',
-        maxPrice: '$25',
-    },
-};
 
 // Variable to store dynamically generated order ID
-let orderId: string | undefined;
+
+
 
 // ======================================================
 // Checkout Journey — Registered User Purchase Flow
@@ -26,9 +12,12 @@ let orderId: string | undefined;
 
 test.describe('Checkout — registered user purchase journey @checkout @journey', () => {
 
+    searchData.forEach((search) => {
     test(
-        'registered user searches filters purchases product and verifies order @smoke @regression @critical',
+        `registered user searches for ${search.keyword} and ${search.maxPrice} filters purchases product and verifies order @smoke @regression @critical`,
         async ({ loggedInPage:page }) => {
+
+            let orderId: string | undefined;
 
             // ──────────────────────────────────────────
             // Step 1 — Open DemoShop
@@ -54,13 +43,13 @@ test.describe('Checkout — registered user purchase journey @checkout @journey'
             await test.step('Search for products', async () => {
 
                 await page.getByRole('searchbox', { name: 'Search' })
-                    .fill(testData.search.keyword);
+                    .fill(search.keyword);
 
                 await page.getByRole('button', { name: 'Search' }).click();
 
                 await expect(
                     page.getByRole('heading', {
-                        name: `Search results: “${testData.search.keyword}”`
+                        name: `Search results: “${search.keyword}”`
                     })
                 ).toBeVisible();
 
@@ -74,7 +63,7 @@ test.describe('Checkout — registered user purchase journey @checkout @journey'
                         .getByRole('heading')
                         .textContent();
                     expect(title?.toLowerCase())
-                        .toContain(testData.search.keyword.toLowerCase());
+                        .toContain(search.keyword.toLowerCase());
                 }
 
             });
@@ -86,11 +75,11 @@ test.describe('Checkout — registered user purchase journey @checkout @journey'
 
                 await page.getByRole('textbox', {
                     name: 'Filter products by maximum'
-                }).fill(testData.search.maxPrice);
+                }).fill(search.maxPrice);
 
                 // Convert "$25" to numeric 25 for comparison
                 const maxPriceNum = Number(
-                    testData.search.maxPrice.replace('$', '')
+                    search.maxPrice.replace('$', '')
                 );
 
                 await page.getByText(`Up to $${maxPriceNum}`)
@@ -261,5 +250,6 @@ test.describe('Checkout — registered user purchase journey @checkout @journey'
 
         }
     );
+})
 
 });

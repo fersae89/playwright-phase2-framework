@@ -1,24 +1,15 @@
 import { test, expect } from '../../fixtures/baseFixtures';
-
-// ─────────────────────────────────────────────
-// Login Test Data
-// ─────────────────────────────────────────────
-const loginData = {
-    user: 'fersae89',
-    password: '5gtJ9yMQyAG4DuD',
-    baseUrl: 'https://qa-cart.com/',
-};
-
+import products from '../../data/product.json';
 // ─────────────────────────────────────────────
 // Product Test Data
 // ─────────────────────────────────────────────
-const testData = {
-    product: {
-        name: 'Assorted Coffee',
-        expectedUrl: /assorted-coffee/
-    }
-};
-
+// const testData = {
+//     product: {
+//         name: 'Assorted Coffee',
+//         expectedUrl: /assorted-coffee/
+//     }
+// };
+const product = products[0];
 
 // ─────────────────────────────────────────────
 // Test: View Product Details in New Tab
@@ -40,7 +31,7 @@ test('registered user views product details in new tab @regression', async ({ lo
 
         // Locate the product link
         const productLink = page
-            .getByRole('link', { name: testData.product.name })
+            .getByRole('link', { name: product.name })
             .first();
 
         // Verify the link is configured to open in a new tab
@@ -60,13 +51,13 @@ test('registered user views product details in new tab @regression', async ({ lo
         // Verify product heading is displayed
         await expect(
             productTab.getByRole('heading', {
-                name: testData.product.name
+                name: product.name
             })
         ).toBeVisible();
 
         // Verify correct product page URL
         await expect(productTab)
-            .toHaveURL(testData.product.expectedUrl);
+            .toHaveURL(new RegExp(product.expectedUrl));
 
         // Close the product tab
         await productTab.close();

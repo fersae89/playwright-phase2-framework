@@ -1,23 +1,13 @@
 import { test, expect } from '../../fixtures/baseFixtures';
-
-// ============================================================
-// Test Data
-// ============================================================
-
-const loginData = {
-  user: 'fersae89',
-  password: '5gtJ9yMQyAG4DuD',
-  baseUrl: 'https://qa-cart.com/',
-};
-
-const billingAddress = {
-  firstName: 'Fer',
-  lastName: 'Sae',
-  street: '123 Test Street',
-  city: 'Nvo CG',
-  country: 'MX',
-};
-
+import addresses from '../../data/addresses.json'
+// const billingAddress = {
+//   firstName: 'Fer',
+//   lastName: 'Sae',
+//   street: '123 Test Street',
+//   city: 'Nvo CG',
+//   country: 'MX',
+// };
+const billingAddress = addresses[0];
 // ============================================================
 // Billing Address Update Test
 // ============================================================

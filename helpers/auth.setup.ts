@@ -9,9 +9,9 @@ const authFile = path.join(__dirname, '..', 'auth', 'storageState.json');
 
 //Login Credentials
 const loginData = {
-    user: 'fersae89',
-    password: '5gtJ9yMQyAG4DuD',
-    baseUrl: 'https://qa-cart.com/',
+    user: process.env.DEMO_USER!,
+    password: process.env.DEMO_PASS!,
+    baseUrl: process.env.BASE_URL!
 };
 
 //----------------
